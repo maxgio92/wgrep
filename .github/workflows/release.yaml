@@ -16,7 +16,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b #v3.0.2
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 0
 
@@ -24,22 +24,22 @@ jobs:
         run: git fetch --prune --force --tags
 
       - name: Setup Go
-        uses: actions/setup-go@84cbf8094393cdc5fe1fe1671ff2647332956b1a #v3.2.1
+        uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
         with:
           go-version: '1.20'
 
-      - uses: sigstore/cosign-installer@c3667d99424e7e6047999fb6246c0da843953c65 #v3.0.1
+      - uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20 #v3.5.0
 
-      - uses: anchore/sbom-action/download-syft@448520c4f19577ffce70a8317e619089054687e3 #v0.13.4
+      - uses: anchore/sbom-action/download-syft@e8d2a6937ecead383dfe75190d104edd1f9c5751 #v0.16.0
 
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3.2.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish release
-        uses: goreleaser/goreleaser-action@f82d6c1c344bcacabba2c841718984797f664a6b #4.2.0
+        uses: goreleaser/goreleaser-action@286f3b13b1b49da4ac219696163fb8c1c93e1200 #6.0.0
         with:
           version: latest
           args: release --clean
