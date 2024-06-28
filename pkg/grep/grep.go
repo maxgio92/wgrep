@@ -51,6 +51,9 @@ type Options struct {
 	// ElementFilter is the HTML element to filter while looking for the pattern.
 	ElementFilter string
 
+	// IncludeRegexp is the string that page URL should match
+	IncludeRegexp string
+
 	// Verbose enables the Grep job verbosity printing every visited URL.
 	Verbose bool
 
@@ -108,6 +111,12 @@ func WithElementFilter(element string) Option {
 func WithCaseInsensitive(insensitive bool) Option {
 	return func(opts *Options) {
 		opts.CaseInsensitive = insensitive
+	}
+}
+
+func WithIncludeRegexp(include string) Option {
+	return func(opts *Options) {
+		opts.IncludeRegexp = include
 	}
 }
 

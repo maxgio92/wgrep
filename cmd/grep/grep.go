@@ -56,12 +56,14 @@ func NewCmd() *cobra.Command {
 		"Whether to search for the pattern case insensitive")
 	cmd.Flags().StringVar(&o.ElementFilter, "element", "p",
 		"The HTLM element to filer on while searching for the pattern")
-	cmd.Flags().BoolVarP(&o.Verbose, "verbose", "v", false,
-		"Enable verbosity to log all visited HTTP(s) files")
+	cmd.Flags().StringVar(&o.IncludeRegexp, "include", "",
+		"Search only pages whose URL matches teh include regular expression.")
 	cmd.Flags().BoolVarP(&o.Recursive, "recursive", "r", false,
 		"Inspect all web pages recursively by following each hypertext reference.")
 	cmd.Flags().BoolVar(&o.Async, "async", true,
 		"Whether to scrape with asynchronous jobs.")
+	cmd.Flags().BoolVarP(&o.Verbose, "verbose", "v", false,
+		"Enable verbosity to log all visited HTTP(s) files")
 
 	// Timeouts flags.
 	cmd.Flags().IntVar(&o.ConnectionTimeout, "connection-timeout", network.DefaultTimeout,
@@ -134,6 +136,7 @@ func (o *Command) Run(_ *cobra.Command, args []string) error {
 		grep.WithPattern(o.Pattern),
 		grep.WithCaseInsensitive(o.CaseInsensitive),
 		grep.WithElementFilter(o.ElementFilter),
+		grep.WithIncludeRegexp(o.IncludeRegexp),
 		grep.WithRecursive(o.Recursive),
 		grep.WithVerbosity(o.Verbose),
 		grep.WithAsync(o.Async),

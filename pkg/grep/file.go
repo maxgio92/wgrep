@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"net/url"
+	"regexp"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -82,8 +83,16 @@ func (o *Options) crawlFiles() (*Result, error) {
 	co.OnHTML(HTMLTagLink, func(e *colly.HTMLElement) {
 		href := e.Attr(HTMLAttrRef)
 
+		includeLinked := true
+		if o.IncludeRegexp != "" {
+			includeLinked = false
+			if match, _ := regexp.MatchString(o.IncludeRegexp, href); match == true {
+				includeLinked = true
+			}
+		}
+
 		// Traverse the folder hierarchy in top-down order.
-		if o.Recursive && !(strings.Contains(href, UpDir)) && href != RootDir {
+		if o.Recursive && !(strings.Contains(href, UpDir)) && href != RootDir && includeLinked {
 			//nolint:errcheck
 			co.Visit(e.Request.AbsoluteURL(e.Attr(HTMLAttrRef)))
 		}
