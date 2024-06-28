@@ -76,3 +76,29 @@ docker_signs:
   - '${artifact}'
   - "--yes" # needed on cosign 2.0.0+
 
+release:
+  header: |
+    ## {{ .Tag }} release is out!
+    
+    ### Install with Go
+    
+    ```shell
+    go install github.com/maxgio92/{{ .ProjectName }}@{{ .Tag }}
+    ```
+    
+    ### Run in container
+    
+    Verify the signature with Cosign:
+    
+    ```shell
+    cosign verify \
+      --certificate-identity-regexp "github.com/maxgio92" \
+      --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+      ghcr.io/maxgio92/{{ .ProjectName }}:{{ .Version }}
+    ```
+    
+    Pull the image:
+    
+    ```shell
+    docker pull ghcr.io/maxgio92/{{ .ProjectName }}:{{ .Version }}
+    ```
