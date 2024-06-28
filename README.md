@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/github/license/maxgio92/wgrep?style=for-the-badge)](COPYING)
 ![Go version](https://img.shields.io/github/go-mod/go-version/maxgio92/wgrep?style=for-the-badge)
 
-# wgrep: like grep but for web sites
+# ![](./logo.svg) like grep but for web sites
 
 `wgrep` (world wide web grep) search for patterns in a web site directory hierarchy over HTTP, through hypertext references.
 
