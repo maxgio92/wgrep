@@ -21,8 +21,10 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/maxgio92/wgrep/internal/network"
 	"github.com/pkg/errors"
+	log "github.com/rs/zerolog"
+
+	"github.com/maxgio92/wgrep/internal/network"
 )
 
 // Result represents the output of the Grep job.
@@ -56,6 +58,8 @@ type Options struct {
 
 	// Verbose enables the Grep job verbosity printing every visited URL.
 	Verbose bool
+
+	Logger log.Logger
 
 	// Async represetns the option to scrape with multiple asynchronous coroutines.
 	Async bool
@@ -123,6 +127,12 @@ func WithIncludeRegexp(include string) Option {
 func WithVerbosity(verbosity bool) Option {
 	return func(opts *Options) {
 		opts.Verbose = verbosity
+	}
+}
+
+func WithLogger(logger log.Logger) Option {
+	return func(opts *Options) {
+		opts.Logger = logger
 	}
 }
 

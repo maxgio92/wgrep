@@ -18,7 +18,6 @@ package grep
 
 import (
 	"context"
-	"log"
 	"os"
 
 	"github.com/cenkalti/backoff"
@@ -50,7 +49,7 @@ func (o *Options) handleError(response *colly.Response, err error) {
 		}
 	// Other failures.
 	default:
-		log.Printf("error: %v\n", err)
+		o.Logger.Debug().Err(err)
 	}
 }
 

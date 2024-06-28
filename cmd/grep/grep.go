@@ -20,6 +20,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	log "github.com/rs/zerolog"
 	"github.com/spf13/cobra"
 
 	"github.com/maxgio92/wgrep/internal/network"
@@ -115,6 +116,11 @@ func (o *Command) Run(_ *cobra.Command, args []string) error {
 		return err
 	}
 
+	// Set logger verbosity.
+	if o.Verbose {
+		o.Logger = o.Logger.Level(log.DebugLevel)
+	}
+
 	// Network client dialer.
 	dialer := network.NewDialer(
 		network.WithTimeout(time.Duration(o.ConnectionTimeout)*time.Millisecond),
@@ -139,6 +145,7 @@ func (o *Command) Run(_ *cobra.Command, args []string) error {
 		grep.WithIncludeRegexp(o.IncludeRegexp),
 		grep.WithRecursive(o.Recursive),
 		grep.WithVerbosity(o.Verbose),
+		grep.WithLogger(o.Logger),
 		grep.WithAsync(o.Async),
 		grep.WithMaxBodySize(o.MaxBodySize),
 		grep.WithClientTransport(transport),

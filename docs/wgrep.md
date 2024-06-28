@@ -17,6 +17,7 @@ wgrep PATTERN URL [flags]
   -h, --help                                help for wgrep
       --idle-connection-timeout int         The maximum amount of time in milliseconds a connection will remain idle before closing itself. (default 120000)
   -i, --ignore-case                         Whether to search for the pattern case insensitive
+      --include string                      Search only pages whose URL matches teh include regular expression.
       --keep-alive-interval int             The interval between keep-alive probes for an active network connection. (default 30000)
       --max-body-size int                   The maximum size in bytes a response body is read for each request. (default 524288)
   -r, --recursive                           Inspect all web pages recursively by following each hypertext reference.
