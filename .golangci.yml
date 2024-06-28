@@ -1,8 +1,6 @@
 linters-settings:
   govet:
-    check-shadowing: true
-  maligned:
-    suggest-new: true
+    shadow: true
   goconst:
     min-len: 2
     min-occurrences: 3
@@ -19,14 +17,9 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - interfacer
     - godox
-    - golint
-    - scopelint
-    - maligned
     - gochecknoglobals
     - gochecknoinits
-    - exhaustivestruct
     - exhaustruct
     - ireturn
     - lll

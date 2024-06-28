@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/maxgio92/wgrep/internal/network"
-	"github.com/maxgio92/wgrep/pkg/find"
+	grep "github.com/maxgio92/wgrep/pkg/grep"
 )
 
 const (
@@ -35,19 +35,17 @@ const (
 var _ = Describe("File crawling", func() {
 	Context("Async", func() {
 		var (
-			search = find.NewFind(
-				find.WithAsync(true),
-				find.WithSeedURLs([]string{seedURL}),
-				find.WithClientTransport(network.DefaultClientTransport),
-				find.WithFilenameRegexp(fileRegexp),
-				find.WithFileType(find.FileTypeReg),
-				find.WithRecursive(true),
-				find.WithMaxBodySize(find.DefaultMaxBodySize),
-				find.WithContextDeadlineRetryBackOff(find.DefaultExponentialBackOffOptions),
-				find.WithConnTimeoutRetryBackOff(find.DefaultExponentialBackOffOptions),
-				find.WithConnResetRetryBackOff(find.DefaultExponentialBackOffOptions),
+			search = grep.NewFind(
+				grep.WithAsync(true),
+				grep.WithSeedURLs([]string{seedURL}),
+				grep.WithClientTransport(network.DefaultClientTransport),
+				grep.WithRecursive(true),
+				grep.WithMaxBodySize(grep.DefaultMaxBodySize),
+				grep.WithContextDeadlineRetryBackOff(grep.DefaultExponentialBackOffOptions),
+				grep.WithConnTimeoutRetryBackOff(grep.DefaultExponentialBackOffOptions),
+				grep.WithConnResetRetryBackOff(grep.DefaultExponentialBackOffOptions),
 			)
-			actual        *find.Result
+			actual        *grep.Result
 			err           error
 			expectedCount = expectedResults
 		)

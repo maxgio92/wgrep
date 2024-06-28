@@ -25,7 +25,7 @@ import (
 	"github.com/vitorsalgado/mocha/v3/expect"
 	"github.com/vitorsalgado/mocha/v3/reply"
 
-	"github.com/maxgio92/wgrep/pkg/find"
+	"github.com/maxgio92/wgrep/pkg/grep"
 )
 
 const (
@@ -130,15 +130,13 @@ func TestFindFile(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(`.+`),
-		find.WithFileType(find.FileTypeReg),
-		find.WithRecursive(false),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(false),
+		grep.WithVerbosity(false),
 	)
 
-	found, err := finder.Find()
+	found, err := finder.Grep()
 
 	assert.Nil(t, err)
 	assert.NotNil(t, found)
@@ -153,12 +151,10 @@ func TestFindDir(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(`^.+$`),
-		find.WithFileType(find.FileTypeDir),
-		find.WithRecursive(false),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(false),
+		grep.WithVerbosity(false),
 	)
 
 	found, err := finder.Find()
@@ -176,15 +172,13 @@ func TestFindFileRecursive(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(fmt.Sprintf("^%s$", filename)),
-		find.WithFileType(find.FileTypeReg),
-		find.WithRecursive(true),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(true),
+		grep.WithVerbosity(false),
 	)
 
-	found, err := finder.Find()
+	found, err := finder.Grep()
 
 	assert.Nil(t, err)
 	assert.NotNil(t, found)
@@ -198,15 +192,13 @@ func TestFindDirRecursive(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(fmt.Sprintf("^%s$", dirname)),
-		find.WithFileType(find.FileTypeDir),
-		find.WithRecursive(true),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(true),
+		grep.WithVerbosity(false),
 	)
 
-	found, err := finder.Find()
+	found, err := finder.Grep()
 
 	assert.Nil(t, err)
 	assert.NotNil(t, found)
@@ -220,15 +212,13 @@ func TestFindFileRecursiveDotSlash(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(fmt.Sprintf("^%s$", filename)),
-		find.WithFileType(find.FileTypeReg),
-		find.WithRecursive(true),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(true),
+		grep.WithVerbosity(false),
 	)
 
-	found, err := finder.Find()
+	found, err := finder.Grep()
 
 	assert.Nil(t, err)
 	assert.NotNil(t, found)
@@ -242,15 +232,13 @@ func TestFindDirRecursiveDotSlash(t *testing.T) {
 	initFileHierarchy()
 	m := initWebServer(t)
 
-	finder := find.NewFind(
-		find.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
-		find.WithFilenameRegexp(fmt.Sprintf("^%s$", dirname)),
-		find.WithFileType(find.FileTypeDir),
-		find.WithRecursive(true),
-		find.WithVerbosity(false),
+	finder := grep.NewGrep(
+		grep.WithSeedURLs([]string{fmt.Sprintf("%s/%s", m.URL(), homedir)}),
+		grep.WithRecursive(true),
+		grep.WithVerbosity(false),
 	)
 
-	found, err := finder.Find()
+	found, err := finder.Grep()
 
 	assert.Nil(t, err)
 	assert.NotNil(t, found)
